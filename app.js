@@ -5,7 +5,22 @@
 //      所有傳入的字都是小寫。
 
 function highestScoreWord(input) {
-  // 實作寫在這裡
+    // 拆成單字
+    const result = input.split(" ")
+    // 拆成字母
+        .map((word) => word.split(""))
+    // 算字母分數 並回傳分數跟組成單字
+        .map((letter) => {
+            return {
+                score: letter.reduce((acc, cur) => {
+                    return acc + (cur.charCodeAt() - 96) }, 0
+                ),
+                word: letter.join("")};
+        })
+    // 依照分數排列 由大到小
+        .sort((a, b) => b.score - a.score);
+
+    return result[0].word;
 }
 
 console.log(highestScoreWord("lorem ipsum dolor sit amet")) // 印出 ipsum
